@@ -1,18 +1,58 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <header class="code-header">
+      <editor v-model="code.template" language="html">
+        &lt;Template&gt;
+      </editor>
+      <editor v-model="code.script" language="javascript">
+        { Script }
+      </editor>
+      <editor v-model="code.style" language="css">
+        .Style (under development)
+      </editor>
+    </header>
+    <button @click="exportSFC">
+      Export SFC
+    </button>
+    <runtime :template="code.template" :script="code.script" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Editor from "@/components/Editor"
+import Runtime from "@/components/Runtime"
+import { downloadSFC } from '@/utils/exporter'
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    Editor,
+    Runtime
+  },
+  data() {
+    return {
+      code: {
+        template: "<h1>{{ test }}</h1>",
+        style: "",
+        script: `data () {
+  return {
+    test: 'welcome'
   }
-};
+}`
+      }
+    }
+  },
+  methods: {
+    exportSFC () {
+      downloadSFC(this.code)
+    }
+  }
+}
 </script>
+<style lang="scss" scoped>
+.code-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+</style>
