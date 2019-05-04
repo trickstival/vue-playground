@@ -32,7 +32,7 @@ export default {
             const component = eval(jsonString)
             component.template = this.template
 
-            let builtComp = Vue.extend(component)
+            const builtComp = Vue.extend(component)
             return builtComp
         },
         code () {
@@ -48,6 +48,11 @@ export default {
             handler () {
                 this.currentError = ''
             }   
+        }
+    },
+    beforeCreate () {
+        Vue.config.errorHandler = err => {
+            this.currentError = err
         }
     },
     errorCaptured (err, vm, info) {
