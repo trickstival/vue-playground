@@ -1,3 +1,3 @@
 # vue-playground
 
-Demo: [https://trickstival.github.io/vue-playground/](https://trickstival.github.io/vue-playground/dist)
+Demo: [https://inspiring-jang-8d91d8.netlify.com/#/](https://inspiring-jang-8d91d8.netlify.com/#/)
