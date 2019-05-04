@@ -55,4 +55,10 @@ export default {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .code-header {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
