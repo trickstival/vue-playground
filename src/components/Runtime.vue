@@ -1,6 +1,9 @@
 <template>
     <main class="runtime">
-        <component :is="theComponent" />
+        <pre v-if="currentError" class="errorMessage">
+            {{currentError && currentError.stack}}
+        </pre>
+        <component v-else :is="theComponent" />
     </main>
 </template>
 
@@ -18,13 +21,38 @@ export default {
             default: `data() { return { test: 'testtt' } }`
         }
     },
+    data () {
+        return {
+            currentError: ''
+        }
+    },
     computed: {
         theComponent () {
             const jsonString = `({${this.script}})`.replace(/'/g, '"')
             const component = eval(jsonString)
             component.template = this.template
-            return Vue.extend(component)
+
+            let builtComp = Vue.extend(component)
+            return builtComp
+        },
+        code () {
+            return {
+                template: this.template,
+                script: this.script
+            }
         }
+    },
+    watch: {
+        code: {
+            deep: true,
+            handler () {
+                this.currentError = ''
+            }   
+        }
+    },
+    errorCaptured (err, vm, info) {
+        console.log('error captured', err)
+        this.currentError = err
     }
 }
 </script>
@@ -33,5 +61,8 @@ export default {
 .runtime {
     background-color: #f5f2f0;
     height: 79vh;
+}
+.errorMessage {
+    color: red;
 }
 </style>
