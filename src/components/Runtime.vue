@@ -31,7 +31,7 @@ export default {
 
 <style scoped lang="scss">
 .runtime {
-    background-color: grey;
+    background-color: #f5f2f0;
     height: 79vh;
 }
 </style>
