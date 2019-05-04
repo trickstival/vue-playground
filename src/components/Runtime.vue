@@ -51,7 +51,6 @@ export default {
         }
     },
     errorCaptured (err, vm, info) {
-        console.log('error captured', err)
         this.currentError = err
     }
 }
